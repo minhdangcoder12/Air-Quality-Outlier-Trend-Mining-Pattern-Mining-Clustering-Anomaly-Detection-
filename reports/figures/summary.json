@@ -1,0 +1,384 @@
+{
+  "n_hours": 9357,
+  "period": "10/03/2004 – 04/04/2005",
+  "missing_pct": {
+    "PT08.S1(CO)": 3.9,
+    "C6H6(GT)": 3.9,
+    "PT08.S2(NMHC)": 3.9,
+    "PT08.S3(NOx)": 3.9,
+    "PT08.S4(NO2)": 3.9,
+    "PT08.S5(O3)": 3.9,
+    "T": 3.9,
+    "RH": 3.9,
+    "AH": 3.9,
+    "NOx(GT)": 17.5,
+    "NO2(GT)": 17.5,
+    "CO(GT)": 18.0,
+    "NMHC(GT)": 90.2
+  },
+  "preprocess": {
+    "CO(GT)": {
+      "% thiếu gốc": 18.0,
+      "% nội suy ngắn": 2.0,
+      "% còn thiếu (khoảng dài)": 16.0
+    },
+    "NOx(GT)": {
+      "% thiếu gốc": 17.5,
+      "% nội suy ngắn": 3.5,
+      "% còn thiếu (khoảng dài)": 14.0
+    },
+    "NO2(GT)": {
+      "% thiếu gốc": 17.5,
+      "% nội suy ngắn": 3.5,
+      "% còn thiếu (khoảng dài)": 14.1
+    },
+    "C6H6(GT)": {
+      "% thiếu gốc": 3.9,
+      "% nội suy ngắn": 0.2,
+      "% còn thiếu (khoảng dài)": 3.8
+    },
+    "T": {
+      "% thiếu gốc": 3.9,
+      "% nội suy ngắn": 0.2,
+      "% còn thiếu (khoảng dài)": 3.8
+    },
+    "RH": {
+      "% thiếu gốc": 3.9,
+      "% nội suy ngắn": 0.2,
+      "% còn thiếu (khoảng dài)": 3.8
+    },
+    "AH": {
+      "% thiếu gốc": 3.9,
+      "% nội suy ngắn": 0.2,
+      "% còn thiếu (khoảng dài)": 3.8
+    }
+  },
+  "co_peak_hour": 19,
+  "winter_vs_summer_index": {
+    "CO(GT)": [
+      77,
+      112
+    ],
+    "NOx(GT)": [
+      44,
+      155
+    ],
+    "NO2(GT)": [
+      81,
+      123
+    ],
+    "C6H6(GT)": [
+      93,
+      96
+    ]
+  },
+  "injection_recall": {
+    "5": 0.8333333333333334,
+    "8": 1.0
+  },
+  "anomaly": {
+    "C6H6(GT)": {
+      "giờ bất thường": 85,
+      "% giờ có số đo": 0.94,
+      "số sự kiện": 34,
+      "baseline 3σ (giờ)": 101,
+      "trùng baseline (%)": 11.8
+    },
+    "CO(GT)": {
+      "giờ bất thường": 211,
+      "% giờ có số đo": 2.68,
+      "số sự kiện": 76,
+      "baseline 3σ (giờ)": 101,
+      "trùng baseline (%)": 13.3
+    },
+    "NO2(GT)": {
+      "giờ bất thường": 49,
+      "% giờ có số đo": 0.61,
+      "số sự kiện": 31,
+      "baseline 3σ (giờ)": 44,
+      "trùng baseline (%)": 12.2
+    },
+    "NOx(GT)": {
+      "giờ bất thường": 121,
+      "% giờ có số đo": 1.5,
+      "số sự kiện": 45,
+      "baseline 3σ (giờ)": 142,
+      "trùng baseline (%)": 23.1
+    }
+  },
+  "winter_share": {
+    "baseline": 0.884,
+    "mstl": 0.812
+  },
+  "overlap_with_baseline": 0.155,
+  "iforest": {
+    "flagged": 149,
+    "share_also_spike": 0.349,
+    "share_dip_only": 0.577,
+    "jaccard": 0.142
+  },
+  "co_sunday_vs_weekday": 0.62,
+  "complete_days": 279,
+  "n_patterns": 21,
+  "group_days": {
+    "Ngày thường": 193,
+    "Cuối tuần": 86,
+    "Xuân": 95,
+    "Hè": 59,
+    "Thu": 58,
+    "Đông": 67
+  },
+  "top_patterns": [
+    {
+      "pattern": "00–05h:L → 16–20h:H",
+      "support_%": 47.3,
+      "confidence_%": 58.7,
+      "Ngày thường": 63.2,
+      "Cuối tuần": 11.6,
+      "Xuân": 45.3,
+      "Hè": 42.4,
+      "Thu": 62.1,
+      "Đông": 41.8
+    },
+    {
+      "pattern": "10–15h:H → 16–20h:H",
+      "support_%": 37.3,
+      "confidence_%": 92.9,
+      "Ngày thường": 46.6,
+      "Cuối tuần": 16.3,
+      "Xuân": 27.4,
+      "Hè": 11.9,
+      "Thu": 62.1,
+      "Đông": 52.2
+    },
+    {
+      "pattern": "06–09h:H → 16–20h:H",
+      "support_%": 30.5,
+      "confidence_%": 86.7,
+      "Ngày thường": 43.0,
+      "Cuối tuần": 2.3,
+      "Xuân": 24.2,
+      "Hè": 20.3,
+      "Thu": 50.0,
+      "Đông": 31.3
+    },
+    {
+      "pattern": "00–05h:L → 10–15h:H",
+      "support_%": 28.3,
+      "confidence_%": 35.1,
+      "Ngày thường": 37.8,
+      "Cuối tuần": 7.0,
+      "Xuân": 26.3,
+      "Hè": 11.9,
+      "Thu": 48.3,
+      "Đông": 28.4
+    },
+    {
+      "pattern": "00–05h:L → 10–15h:H → 16–20h:H",
+      "support_%": 26.2,
+      "confidence_%": 92.4,
+      "Ngày thường": 35.8,
+      "Cuối tuần": 4.7,
+      "Xuân": 23.2,
+      "Hè": 11.9,
+      "Thu": 44.8,
+      "Đông": 26.9
+    },
+    {
+      "pattern": "00–05h:L → 06–09h:L",
+      "support_%": 25.4,
+      "confidence_%": 31.6,
+      "Ngày thường": 12.4,
+      "Cuối tuần": 54.7,
+      "Xuân": 28.4,
+      "Hè": 39.0,
+      "Thu": 15.5,
+      "Đông": 17.9
+    },
+    {
+      "pattern": "16–20h:H → 21–23h:H",
+      "support_%": 25.1,
+      "confidence_%": 40.7,
+      "Ngày thường": 30.6,
+      "Cuối tuần": 12.8,
+      "Xuân": 23.2,
+      "Hè": 5.1,
+      "Thu": 25.9,
+      "Đông": 44.8
+    },
+    {
+      "pattern": "06–09h:H → 10–15h:H",
+      "support_%": 25.1,
+      "confidence_%": 71.4,
+      "Ngày thường": 34.7,
+      "Cuối tuần": 3.5,
+      "Xuân": 17.9,
+      "Hè": 6.8,
+      "Thu": 48.3,
+      "Đông": 31.3
+    }
+  ],
+  "pca_dims": 8,
+  "hopkins": [
+    0.724,
+    0.499
+  ],
+  "k_scores": {
+    "2": {
+      "sil_kmeans": 0.306,
+      "db_kmeans": 1.265,
+      "sil_ward": 0.345,
+      "db_ward": 1.193
+    },
+    "3": {
+      "sil_kmeans": 0.26,
+      "db_kmeans": 1.342,
+      "sil_ward": 0.231,
+      "db_ward": 1.383
+    },
+    "4": {
+      "sil_kmeans": 0.283,
+      "db_kmeans": 1.325,
+      "sil_ward": 0.24,
+      "db_ward": 1.348
+    },
+    "5": {
+      "sil_kmeans": 0.268,
+      "db_kmeans": 1.321,
+      "sil_ward": 0.228,
+      "db_ward": 1.551
+    },
+    "6": {
+      "sil_kmeans": 0.249,
+      "db_kmeans": 1.395,
+      "sil_ward": 0.232,
+      "db_ward": 1.46
+    },
+    "7": {
+      "sil_kmeans": 0.235,
+      "db_kmeans": 1.464,
+      "sil_ward": 0.211,
+      "db_ward": 1.525
+    },
+    "8": {
+      "sil_kmeans": 0.199,
+      "db_kmeans": 1.443,
+      "sil_ward": 0.202,
+      "db_ward": 1.596
+    }
+  },
+  "K": 4,
+  "evaluation": [
+    {
+      "method": "K-Means++ (n_init=20)",
+      "silhouette": 0.283,
+      "davies_bouldin": 1.325,
+      "calinski_harabasz": 124.078,
+      "ARI_vs_KMeans": 1.0
+    },
+    {
+      "method": "Agglomerative (Ward)",
+      "silhouette": 0.24,
+      "davies_bouldin": 1.348,
+      "calinski_harabasz": 108.394,
+      "ARI_vs_KMeans": 0.527
+    },
+    {
+      "method": "Hybrid (Ward → K-Means)",
+      "silhouette": 0.274,
+      "davies_bouldin": 1.261,
+      "calinski_harabasz": 121.423,
+      "ARI_vs_KMeans": 0.731
+    }
+  ],
+  "stability": {
+    "mean": 0.932,
+    "min": 0.697
+  },
+  "cluster_profile": [
+    {
+      "cluster": 1,
+      "n_days": 94,
+      "share_%": 33.7,
+      "weekend_%": 64.9,
+      "top_season": "Xuân",
+      "spike_hours_per_day": 0.29,
+      "CO(GT)": 1.37,
+      "NOx(GT)": 128.89,
+      "NO2(GT)": 85.29,
+      "C6H6(GT)": 6.04,
+      "T": 19.0,
+      "RH": 46.43,
+      "AH": 1.02
+    },
+    {
+      "cluster": 2,
+      "n_days": 95,
+      "share_%": 34.1,
+      "weekend_%": 6.3,
+      "top_season": "Xuân",
+      "spike_hours_per_day": 0.29,
+      "CO(GT)": 2.32,
+      "NOx(GT)": 199.78,
+      "NO2(GT)": 104.89,
+      "C6H6(GT)": 12.39,
+      "T": 22.16,
+      "RH": 47.43,
+      "AH": 1.18
+    },
+    {
+      "cluster": 3,
+      "n_days": 61,
+      "share_%": 21.9,
+      "weekend_%": 27.9,
+      "top_season": "Đông",
+      "spike_hours_per_day": 1.39,
+      "CO(GT)": 2.17,
+      "NOx(GT)": 342.96,
+      "NO2(GT)": 143.46,
+      "C6H6(GT)": 9.27,
+      "T": 10.53,
+      "RH": 52.32,
+      "AH": 0.66
+    },
+    {
+      "cluster": 4,
+      "n_days": 29,
+      "share_%": 10.4,
+      "weekend_%": 6.9,
+      "top_season": "Đông",
+      "spike_hours_per_day": 3.79,
+      "CO(GT)": 3.4,
+      "NOx(GT)": 532.71,
+      "NO2(GT)": 147.93,
+      "C6H6(GT)": 15.91,
+      "T": 11.64,
+      "RH": 61.67,
+      "AH": 0.88
+    }
+  ],
+  "outputs": [
+    "01_missing.png",
+    "02_corr.png",
+    "03_preprocess.png",
+    "04_stl_co.png",
+    "05_monthly_trend.png",
+    "06_spikes_example.png",
+    "07_spike_timing.png",
+    "08_iforest.png",
+    "09_heatmaps.png",
+    "10_sequence_patterns.png",
+    "11_choose_k.png",
+    "12_dendrogram.png",
+    "13_stability.png",
+    "14_pca_clusters.png",
+    "15_cluster_profiles.png",
+    "16_cluster_composition.png",
+    "anomalies.csv",
+    "anomaly_summary.csv",
+    "cluster_profile.csv",
+    "evaluation.csv",
+    "patterns.csv",
+    "stability.csv"
+  ]
+}

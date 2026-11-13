@@ -1,0 +1,4 @@
+method,silhouette,davies_bouldin,calinski_harabasz,ARI_vs_KMeans
+K-Means++ (n_init=20),0.283,1.325,124.078,1.0
+Agglomerative (Ward),0.24,1.348,108.394,0.527
+Hybrid (Ward → K-Means),0.274,1.261,121.423,0.731

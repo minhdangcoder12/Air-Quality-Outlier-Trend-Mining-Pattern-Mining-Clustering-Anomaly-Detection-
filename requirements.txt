@@ -1,0 +1,10 @@
+pandas==2.2.0
+numpy<2
+scikit-learn>=1.4
+scipy
+statsmodels>=0.14
+prefixspan
+matplotlib
+seaborn
+nbformat
+jupyter
