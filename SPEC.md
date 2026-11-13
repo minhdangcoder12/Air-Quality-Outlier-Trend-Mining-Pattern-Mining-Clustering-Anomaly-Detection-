@@ -25,10 +25,10 @@ Ghi lại các quyết định thiết kế và lý do. Số liệu lấy từ l
 | Khoảng trống dài để NaN; chỉ lấp tạm bằng trung vị (tháng, thứ, giờ) cho MSTL | CO còn 16,0% giờ thiếu sau nội suy; các điểm lấp tạm không bao giờ được gắn cờ hay đưa vào khai phá |
 | Trung vị trượt 3h để khử nhiễu | Cắt gai 1 điểm, giữ đỉnh ≥ 2h (hình `03_preprocess.png`) |
 | MSTL chu kỳ 24h + 168h trên `log1p` | Chu kỳ tuần rõ (Chủ nhật CO = 62% ngày thường); dao động mùa đông lớn hơn → log đưa phần dư về sai lệch tương đối |
-| Robust z > 3,5 trên phần dư, chỉ chiều dương | Ngưỡng Iglewicz–Hoaglin; cấy đỉnh giả: bắt lại 83% đỉnh +5σ, 100% đỉnh +8σ |
+| Robust z > 3,5 trên phần dư (trung vị/MAD chỉ tính trên giờ có số đo thật), chỉ chiều dương | Ngưỡng Iglewicz–Hoaglin; cấy đỉnh giả: bắt lại 83% đỉnh +5σ, 100% đỉnh +8σ |
 | Thêm điều kiện “trên trung vị của chất” và bỏ 7 ngày đầu/cuối | Không có điều kiện này: đỉnh giả lúc 0–6h khi nồng độ rất thấp, và đỉnh “mạnh nhất” rơi vào ngày cuối chuỗi (biên MSTL) |
-| Baseline đối chứng: z toàn cục > 3σ | Dồn 88% cờ vào tháng 10–2; chỉ ~15% giờ trùng với phương pháp phần dư |
-| Isolation Forest, `contamination = 0,02` | Bổ sung bất thường đa biến; 58% cờ là giờ thấp bất thường mà bộ đơn biến bỏ qua |
+| Baseline đối chứng: z toàn cục > 3σ trên chuỗi đã làm sạch | Dồn 88% cờ vào tháng 10–2; chỉ ~17% giờ trùng với phương pháp phần dư |
+| Isolation Forest, `contamination = 0,02`, cùng tập giờ với bộ đơn biến | Bổ sung bất thường đa biến; 56% cờ là giờ thấp bất thường mà bộ đơn biến bỏ qua |
 | PrefixSpan, 5 khung giờ, mức H/M/L theo tam phân vị, bỏ M | Giữ thông tin thời gian trong phần tử; min support 15% → 21 mẫu closed trên 279 ngày |
 | Phân cụm ngày: 96 chiều z-score → PCA 90% (8 chiều) | Giữ cả mức và hình dạng; Hopkins 0,724 (ngẫu nhiên 0,499) |
 | k = 4 | Silhouette K-Means cao nhất với k ≥ 3 (0,283); k = 2 (0,306) chỉ tách sạch/bẩn |
@@ -45,8 +45,8 @@ Ghi lại các quyết định thiết kế và lý do. Số liệu lấy từ l
 
 ## Kết quả (k = 4, K-Means)
 
-- 4 cụm ngày: Ngày nghỉ sạch (34%), Ngày làm việc ấm (34%), Ngày lạnh NOx–NO2 cao (22%), Ngày ô nhiễm nặng mùa đông (10%, 3,79 giờ đỉnh bất thường/ngày).
-- 466 giờ đỉnh bất thường (186 sự kiện) trên 4 chất; CO nhiều nhất (211 giờ, 76 sự kiện).
+- 4 cụm ngày: Ngày nghỉ sạch (34%), Ngày làm việc ấm (34%), Ngày lạnh NOx–NO2 cao (22%), Ngày ô nhiễm nặng mùa đông (10%, 3,31 giờ đỉnh bất thường/ngày).
+- 398 giờ đỉnh bất thường (158 sự kiện) trên 4 chất; CO nhiều nhất (180 giờ, 66 sự kiện).
 - Mẫu mạnh nhất: `10–15h:H → 16–20h:H` confidence 92,9%; `06–09h:H → 16–20h:H` gặp ở 43% ngày thường, 2% ngày cuối tuần.
 
 ## Đầu ra

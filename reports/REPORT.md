@@ -2,7 +2,7 @@
 
 ## Tóm tắt
 
-Dữ liệu là **9.357 giờ** đo chất lượng không khí từ một thiết bị đặt bên đường ở một thành phố Ý (10/03/2004 – 04/04/2005). Sau khi nội suy các khoảng trống ngắn và khử nhiễu, chuỗi được phân rã bằng MSTL. Phần dư được dùng để tìm đỉnh ô nhiễm: tìm được **466 giờ bất thường (186 sự kiện)**, và bộ phát hiện bắt lại **100%** các đỉnh cấy giả +8σ. Khai phá tuần tự (PrefixSpan) cho thấy luật **“trưa cao → chiều cao” đúng 92,9%** và cao điểm sáng gần như biến mất vào cuối tuần (43% → 2%). Phân cụm 279 ngày đủ số liệu ra **4 kiểu ngày ô nhiễm**. Cụm ô nhiễm nặng nhất chỉ chiếm 10% số ngày nhưng có **3,79 giờ đỉnh bất thường/ngày**, gấp 13 lần ngày nghỉ sạch. Các cụm ổn định (ARI trung bình **0,93**), nhưng cấu trúc cụm chỉ ở mức vừa phải (Silhouette **0,28**).
+Dữ liệu là **9.357 giờ** đo chất lượng không khí từ một thiết bị đặt bên đường ở một thành phố Ý (10/03/2004 – 04/04/2005). Sau khi nội suy các khoảng trống ngắn và khử nhiễu, chuỗi được phân rã bằng MSTL. Phần dư được dùng để tìm đỉnh ô nhiễm: tìm được **398 giờ bất thường (158 sự kiện)**, và bộ phát hiện bắt lại **100%** các đỉnh cấy giả +8σ. Khai phá tuần tự (PrefixSpan) cho thấy luật **“trưa cao → chiều cao” đúng 92,9%** và cao điểm sáng gần như biến mất vào cuối tuần (43% → 2%). Phân cụm 279 ngày đủ số liệu ra **4 kiểu ngày ô nhiễm**. Cụm ô nhiễm nặng nhất chỉ chiếm 10% số ngày nhưng có **3,31 giờ đỉnh bất thường/ngày**, gấp khoảng 15 lần ngày nghỉ sạch. Các cụm ổn định (ARI trung bình **0,93**), nhưng cấu trúc cụm chỉ ở mức vừa phải (Silhouette **0,28**).
 
 ## 1. Đề bài và dữ liệu
 
@@ -50,7 +50,7 @@ NOx tăng khoảng 3,5 lần vào mùa đông, còn C6H6 gần như không đổ
 ## 4. Phát hiện đỉnh ô nhiễm
 
 **Phương pháp.** Áp dụng MSTL (chu kỳ 24h và 168h, robust) trên `log1p`. Một giờ được tính là đỉnh khi thỏa cả ba điều kiện:
-1. Robust z của phần dư > 3,5.
+1. Robust z của phần dư > 3,5. Trung vị và MAD chỉ tính trên giờ có số đo thật: 16% giờ CO được lấp tạm gần như không dao động, nếu tính cả chúng thì MAD nhỏ đi 8% và tổng số giờ bị gắn cờ tăng khoảng 17% (466 so với 398).
 2. Nồng độ cao hơn trung vị của chất đó.
 3. Không nằm trong 7 ngày đầu hoặc cuối chuỗi.
 
@@ -58,16 +58,16 @@ Cần thang log vì mùa đông dao động mạnh hơn: với ngưỡng tuyệt
 
 | Chất | Giờ bất thường | % giờ có số đo | Sự kiện | Baseline 3σ (giờ) | Trùng baseline |
 |---|---|---|---|---|---|
-| CO | 211 | 2,68% | 76 | 101 | 13% |
-| NOx | 121 | 1,50% | 45 | 142 | 23% |
-| C6H6 | 85 | 0,94% | 34 | 101 | 12% |
-| NO2 | 49 | 0,61% | 31 | 44 | 12% |
+| CO | 180 | 2,29% | 66 | 101 | 15% |
+| NOx | 101 | 1,26% | 37 | 142 | 26% |
+| C6H6 | 79 | 0,88% | 32 | 101 | 13% |
+| NO2 | 38 | 0,47% | 23 | 44 | 11% |
 
 - **Tự kiểm tra:** cấy đỉnh giả vào CO. Bộ phát hiện bắt lại **83%** đỉnh +5σ và **100%** đỉnh +8σ. Đỉnh +5σ bị sót khi rơi đúng vào chỗ phần dư vốn âm.
-- **So với baseline** (z toàn cục > 3σ): baseline chỉ tìm “giờ ô nhiễm cao”, dồn vào cao điểm 17–20h và **88%** cờ rơi vào tháng 10–2. Phương pháp phần dư tìm giờ “cao hơn kỳ vọng của chính giờ/ngày/mùa đó”, nên bắt được cả đỉnh đêm khuya và giữa trưa. Hai phương pháp chỉ trùng khoảng 15% số giờ (hình `07_spike_timing.png`).
-- **Sự kiện mạnh nhất:** CO ngày 31/01/2005 từ 14h đến 21h, đạt 6,8 mg/m³, z = 8,6 (hình `06_spikes_example.png`). Danh sách đầy đủ ở `anomalies.csv`.
+- **So với baseline** (z toàn cục > 3σ trên chuỗi đã làm sạch): baseline chỉ tìm “giờ ô nhiễm cao”, dồn vào cao điểm 17–20h và **88%** cờ rơi vào tháng 10–2. Phương pháp phần dư tìm giờ “cao hơn kỳ vọng của chính giờ/ngày/mùa đó”, nên bắt được cả đỉnh đêm khuya và giữa trưa. Hai phương pháp chỉ trùng khoảng 17% số giờ (hình `07_spike_timing.png`).
+- **Sự kiện mạnh nhất:** CO ngày 31/01/2005 từ 14h đến 21h, đạt 6,8 mg/m³, z = 7,9 (hình `06_spikes_example.png`). Danh sách đầy đủ ở `anomalies.csv`.
 
-**Đa biến.** Isolation Forest chạy trên vector phần dư của 4 chất và gắn cờ 149 giờ. Trong đó **35%** trùng đỉnh đơn biến, còn **58%** là giờ **thấp** bất thường mà bộ đơn biến (chỉ xét chiều dương) bỏ qua; Jaccard giữa hai bộ là 0,14 (hình `08_iforest.png`). Isolation Forest vì vậy bổ sung cho bộ đơn biến chứ không thay thế được nó: nếu chỉ cần tìm *đỉnh* ô nhiễm thì bộ đơn biến phù hợp hơn.
+**Đa biến.** Isolation Forest chạy trên vector phần dư của 4 chất, cùng tập giờ với bộ đơn biến (bỏ 7 ngày biên), và gắn cờ 142 giờ. Trong đó **44%** trùng đỉnh đơn biến, còn **56%** là giờ **thấp** bất thường mà bộ đơn biến (chỉ xét chiều dương) bỏ qua; Jaccard giữa hai bộ là 0,20 (hình `08_iforest.png`). Isolation Forest vì vậy bổ sung cho bộ đơn biến chứ không thay thế được nó: nếu chỉ cần tìm *đỉnh* ô nhiễm thì bộ đơn biến phù hợp hơn.
 
 ## 5. Mẫu theo giờ và mùa
 
@@ -124,20 +124,20 @@ Chạy K-Means 30 lần, mỗi lần trên 80% số ngày lấy ngẫu nhiên v�
 
 | Cụm | Tên đề xuất | Số ngày | Cuối tuần | Mùa chính | CO | NOx | NO2 | C6H6 | T (°C) | Giờ đỉnh/ngày |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Ngày nghỉ sạch | 94 (34%) | **65%** | Xuân/Hè | 1,37 | 129 | 85 | 6,0 | 19,0 | 0,29 |
-| 2 | Ngày làm việc ấm | 95 (34%) | 6% | Xuân/Hè/Thu | 2,32 | 200 | 105 | 12,4 | 22,2 | 0,29 |
-| 3 | Ngày lạnh NOx–NO2 cao | 61 (22%) | 28% | Đông | 2,17 | 343 | 143 | 9,3 | 10,5 | 1,39 |
-| 4 | Ngày ô nhiễm nặng mùa đông | 29 (10%) | 7% | Đông/Thu | **3,40** | **533** | **148** | **15,9** | 11,6 | **3,79** |
+| 1 | Ngày nghỉ sạch | 94 (34%) | **65%** | Xuân/Hè | 1,37 | 129 | 85 | 6,0 | 19,0 | 0,22 |
+| 2 | Ngày làm việc ấm | 95 (34%) | 6% | Xuân/Hè/Thu | 2,32 | 200 | 105 | 12,4 | 22,2 | 0,23 |
+| 3 | Ngày lạnh NOx–NO2 cao | 61 (22%) | 28% | Đông | 2,17 | 343 | 143 | 9,3 | 10,5 | 1,21 |
+| 4 | Ngày ô nhiễm nặng mùa đông | 29 (10%) | 7% | Đông/Thu | **3,40** | **533** | **148** | **15,9** | 11,6 | **3,31** |
 
 - **Cụm 1 và 2** tách nhau chủ yếu theo **lịch làm việc**: 65% so với 6% ngày cuối tuần. Hai cụm có nhiệt độ gần nhau, nên khác biệt này đến từ lưu lượng giao thông.
 - **Cụm 3** tách theo **thời tiết**: lạnh, NOx/NO2 cao suốt ngày kể cả đêm, và tỉ lệ cuối tuần 28% gần với mức ngẫu nhiên 29%. Cụm này là ô nhiễm nền mùa đông, không gắn với lịch đi làm.
-- **Cụm 4** là tổ hợp tệ nhất: ngày làm việc trong mùa lạnh, độ ẩm cao (RH 62%), cả hai cao điểm đều rất cao. Cụm này chỉ chiếm 10% số ngày nhưng chứa phần lớn các giờ đỉnh bất thường (3,79 giờ/ngày, gấp 13 lần cụm 1 và 2).
+- **Cụm 4** là tổ hợp tệ nhất: ngày làm việc trong mùa lạnh, độ ẩm cao (RH 62%), cả hai cao điểm đều rất cao. Cụm này chỉ chiếm 10% số ngày nhưng chứa phần lớn các giờ đỉnh bất thường (3,31 giờ/ngày, gấp khoảng 15 lần cụm 1 và 2).
 
 ## 8. Kết luận
 
 1. Ô nhiễm tại điểm đo bị chi phối bởi **giao thông**: hai cao điểm 8–9h và 19h, Chủ nhật CO chỉ bằng 62% ngày thường. Mùa đông khuếch đại ô nhiễm, mạnh nhất với NOx (chỉ số 155 so với 44 mùa hè).
-2. Tìm đỉnh bất thường bằng **phần dư MSTL + robust z** tìm được những giờ mà ngưỡng tuyệt đối bỏ sót: chỉ khoảng 15% số giờ trùng với baseline 3σ. Bộ phát hiện bắt lại 100% đỉnh cấy giả +8σ.
-3. Isolation Forest bổ sung bất thường **kết hợp** và giờ **thấp** bất thường (58% số cờ). Để tìm đỉnh ô nhiễm, bộ đơn biến phù hợp hơn.
+2. Tìm đỉnh bất thường bằng **phần dư MSTL + robust z** tìm được những giờ mà ngưỡng tuyệt đối bỏ sót: chỉ khoảng 17% số giờ trùng với baseline 3σ. Bộ phát hiện bắt lại 100% đỉnh cấy giả +8σ.
+3. Isolation Forest bổ sung bất thường **kết hợp** và giờ **thấp** bất thường (56% số cờ). Để tìm đỉnh ô nhiễm, bộ đơn biến phù hợp hơn.
 4. Luật tuần tự **“trưa cao → chiều cao” (confidence 92,9%)** cho thấy ô nhiễm có quán tính trong ngày. Có thể dùng luật này như tín hiệu cảnh báo sớm cho buổi chiều.
 5. Cuối tuần và mùa đông có chuỗi mẫu riêng: cuối tuần là “đêm thấp → sáng thấp” (55%); mùa đông là ô nhiễm chiều kéo dài sang tối (45% so với 5% mùa hè).
 6. Bốn kiểu ngày tách theo hai trục, **lịch làm việc** và **thời tiết lạnh**. Cụm 4 (10% số ngày) là đối tượng ưu tiên cho cảnh báo ô nhiễm.

@@ -78,44 +78,44 @@
   },
   "anomaly": {
     "C6H6(GT)": {
-      "giờ bất thường": 85,
-      "% giờ có số đo": 0.94,
-      "số sự kiện": 34,
+      "giờ bất thường": 79,
+      "% giờ có số đo": 0.88,
+      "số sự kiện": 32,
       "baseline 3σ (giờ)": 101,
-      "trùng baseline (%)": 11.8
+      "trùng baseline (%)": 12.7
     },
     "CO(GT)": {
-      "giờ bất thường": 211,
-      "% giờ có số đo": 2.68,
-      "số sự kiện": 76,
+      "giờ bất thường": 180,
+      "% giờ có số đo": 2.29,
+      "số sự kiện": 66,
       "baseline 3σ (giờ)": 101,
-      "trùng baseline (%)": 13.3
+      "trùng baseline (%)": 15.0
     },
     "NO2(GT)": {
-      "giờ bất thường": 49,
-      "% giờ có số đo": 0.61,
-      "số sự kiện": 31,
+      "giờ bất thường": 38,
+      "% giờ có số đo": 0.47,
+      "số sự kiện": 23,
       "baseline 3σ (giờ)": 44,
-      "trùng baseline (%)": 12.2
+      "trùng baseline (%)": 10.5
     },
     "NOx(GT)": {
-      "giờ bất thường": 121,
-      "% giờ có số đo": 1.5,
-      "số sự kiện": 45,
+      "giờ bất thường": 101,
+      "% giờ có số đo": 1.26,
+      "số sự kiện": 37,
       "baseline 3σ (giờ)": 142,
-      "trùng baseline (%)": 23.1
+      "trùng baseline (%)": 25.7
     }
   },
   "winter_share": {
     "baseline": 0.884,
-    "mstl": 0.812
+    "mstl": 0.831
   },
-  "overlap_with_baseline": 0.155,
+  "overlap_with_baseline": 0.168,
   "iforest": {
-    "flagged": 149,
-    "share_also_spike": 0.349,
-    "share_dip_only": 0.577,
-    "jaccard": 0.142
+    "flagged": 142,
+    "share_also_spike": 0.437,
+    "share_dip_only": 0.563,
+    "jaccard": 0.201
   },
   "co_sunday_vs_weekday": 0.62,
   "complete_days": 279,
@@ -302,7 +302,7 @@
       "share_%": 33.7,
       "weekend_%": 64.9,
       "top_season": "Xuân",
-      "spike_hours_per_day": 0.29,
+      "spike_hours_per_day": 0.22,
       "CO(GT)": 1.37,
       "NOx(GT)": 128.89,
       "NO2(GT)": 85.29,
@@ -317,7 +317,7 @@
       "share_%": 34.1,
       "weekend_%": 6.3,
       "top_season": "Xuân",
-      "spike_hours_per_day": 0.29,
+      "spike_hours_per_day": 0.23,
       "CO(GT)": 2.32,
       "NOx(GT)": 199.78,
       "NO2(GT)": 104.89,
@@ -332,7 +332,7 @@
       "share_%": 21.9,
       "weekend_%": 27.9,
       "top_season": "Đông",
-      "spike_hours_per_day": 1.39,
+      "spike_hours_per_day": 1.21,
       "CO(GT)": 2.17,
       "NOx(GT)": 342.96,
       "NO2(GT)": 143.46,
@@ -347,7 +347,7 @@
       "share_%": 10.4,
       "weekend_%": 6.9,
       "top_season": "Đông",
-      "spike_hours_per_day": 3.79,
+      "spike_hours_per_day": 3.31,
       "CO(GT)": 3.4,
       "NOx(GT)": 532.71,
       "NO2(GT)": 147.93,

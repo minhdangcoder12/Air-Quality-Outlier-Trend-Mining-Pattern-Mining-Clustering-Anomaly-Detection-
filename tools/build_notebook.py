@@ -43,7 +43,8 @@ from pathlib import Path
 # Tắt cảnh báo môi trường (pyarrow, số lõi CPU) trước khi import thư viện để output gọn.
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-os.environ.setdefault("LOKY_MAX_CPU_COUNT", str(os.cpu_count() or 1))
+# loky chỉ bỏ bước dò lõi vật lý (in traceback trên Windows không có wmic) khi giới hạn < số lõi logic.
+os.environ.setdefault("LOKY_MAX_CPU_COUNT", str(max(1, (os.cpu_count() or 2) - 1)))
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -282,7 +283,7 @@ md(r"""
 2. nồng độ **cao hơn trung vị** của chính chất đó — loại các “đỉnh tương đối” lúc nửa đêm khi nồng độ rất thấp (trên thang log, 0,5 → 1 mg/m³ cũng là phần dư lớn);
 3. là giờ có số đo thật và không nằm trong 7 ngày đầu/cuối chuỗi (biên của MSTL).
 
-**Đối chứng (baseline):** z-score toàn cục trên giá trị gốc (> 3σ). Baseline này chỉ tìm “giờ ô nhiễm cao” — nó bị mức nền mùa đông chi phối — còn phương pháp phần dư tìm “giờ cao **so với kỳ vọng** của chính giờ đó, ngày đó, mùa đó”.
+**Đối chứng (baseline):** z-score toàn cục trên chuỗi đã làm sạch (> 3σ). Baseline này chỉ tìm “giờ ô nhiễm cao” — nó bị mức nền mùa đông chi phối — còn phương pháp phần dư tìm “giờ cao **so với kỳ vọng** của chính giờ đó, ngày đó, mùa đó”.
 """)
 
 code(r"""
@@ -295,7 +296,8 @@ def robust_z(x: pd.Series) -> pd.Series:
     return 0.6745 * (x - med) / mad
 
 
-Z = pd.DataFrame({c: robust_z(dec[c].resid) for c in POLL})
+# Trung vị/MAD chỉ tính trên giờ có số đo thật: giờ lấp tạm gần như không dao động sẽ làm MAD nhỏ đi.
+Z = pd.DataFrame({c: robust_z(dec[c].resid.where(observed[c])) for c in POLL})
 # Biên chuỗi: MSTL kém tin cậy trong 1 chu kỳ tuần đầu/cuối → không gắn cờ.
 inner = pd.Series(True, index=idx)
 inner.iloc[:168] = inner.iloc[-168:] = False
@@ -314,7 +316,7 @@ scale = (dec[c].resid - dec[c].resid.median()).abs().median() / 0.6745
 inj = LOG[c].copy()
 inj.iloc[pos[:30]] += 5 * scale
 inj.iloc[pos[30:]] += 8 * scale
-z_inj = robust_z(MSTL(inj, periods=(24, 168), stl_kwargs={"robust": True}).fit().resid)
+z_inj = robust_z(MSTL(inj, periods=(24, 168), stl_kwargs={"robust": True}).fit().resid.where(observed[c]))
 recall = {m: float((z_inj.iloc[p] > Z_THR).mean()) for m, p in [(5, pos[:30]), (8, pos[30:])]}
 print(f"Tự kiểm tra: phát hiện lại {recall[5]:.0%} đỉnh +5σ và {recall[8]:.0%} đỉnh +8σ")
 assert recall[8] >= 0.9, "Bộ phát hiện bỏ sót đỉnh rõ ràng"
@@ -402,7 +404,7 @@ Isolation Forest chạy trên vector phần dư z của 4 chất tại mỗi gi�
 """)
 
 code(r"""
-rows_ok = observed[POLL].all(axis=1)
+rows_ok = observed[POLL].all(axis=1) & inner  # cùng tập giờ với bộ đơn biến (bỏ biên MSTL)
 Xif = Z.loc[rows_ok, POLL]
 iso = IsolationForest(n_estimators=300, contamination=0.02, random_state=SEED).fit(Xif)
 if_flag = pd.Series(iso.predict(Xif) == -1, index=Xif.index)

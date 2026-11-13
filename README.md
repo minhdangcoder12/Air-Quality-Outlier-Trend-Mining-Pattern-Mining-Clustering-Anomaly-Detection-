@@ -57,7 +57,7 @@ Chi tiết từng quyết định và số liệu làm căn cứ: [SPEC.md](SPEC
 
 ## Kết quả
 
-**Đỉnh ô nhiễm.** Tìm được 466 giờ bất thường (186 sự kiện); CO nhiều nhất với 211 giờ. Bộ phát hiện bắt lại 100% đỉnh cấy giả +8σ (83% với +5σ). Chỉ khoảng 15% số giờ trùng với baseline 3σ: baseline dồn 88% cờ vào tháng 10–2, còn phần dư MSTL bắt cả đỉnh giữa trưa và đêm khuya.
+**Đỉnh ô nhiễm.** Tìm được 398 giờ bất thường (158 sự kiện); CO nhiều nhất với 180 giờ. Bộ phát hiện bắt lại 100% đỉnh cấy giả +8σ (83% với +5σ). Chỉ khoảng 17% số giờ trùng với baseline 3σ: baseline dồn 88% cờ vào tháng 10–2, còn phần dư MSTL bắt cả đỉnh giữa trưa và đêm khuya.
 
 **Mẫu tuần tự (279 ngày, 21 mẫu closed):**
 
@@ -79,10 +79,10 @@ Hopkins = 0,724 (ngẫu nhiên 0,499). Độ ổn định qua 30 lần lấy m�
 
 | Cụm | Tỉ trọng | Cuối tuần | Mùa chính | CO (mg/m³) | NOx (ppb) | Giờ đỉnh/ngày | Gợi ý |
 |---|---|---|---|---|---|---|---|
-| 1. Ngày nghỉ sạch | 34% | 65% | Xuân/Hè | 1,37 | 129 | 0,29 | Mốc nền tham chiếu |
-| 2. Ngày làm việc ấm | 34% | 6% | Xuân–Thu | 2,32 | 200 | 0,29 | Ô nhiễm giao thông giờ cao điểm |
-| 3. Ngày lạnh NOx–NO2 cao | 22% | 28% | Đông | 2,17 | 343 | 1,39 | Ô nhiễm nền do thời tiết |
-| 4. Ngày ô nhiễm nặng mùa đông | 10% | 7% | Đông/Thu | 3,40 | 533 | 3,79 | Ưu tiên cảnh báo |
+| 1. Ngày nghỉ sạch | 34% | 65% | Xuân/Hè | 1,37 | 129 | 0,22 | Mốc nền tham chiếu |
+| 2. Ngày làm việc ấm | 34% | 6% | Xuân–Thu | 2,32 | 200 | 0,23 | Ô nhiễm giao thông giờ cao điểm |
+| 3. Ngày lạnh NOx–NO2 cao | 22% | 28% | Đông | 2,17 | 343 | 1,21 | Ô nhiễm nền do thời tiết |
+| 4. Ngày ô nhiễm nặng mùa đông | 10% | 7% | Đông/Thu | 3,40 | 533 | 3,31 | Ưu tiên cảnh báo |
 
 Phân tích đầy đủ: [reports/REPORT.md](reports/REPORT.md).
 
